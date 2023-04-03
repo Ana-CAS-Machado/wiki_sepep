@@ -138,45 +138,22 @@ Os servidores são configurados de forma que o MediaWiki seja executado sem prob
 
 A próxima página é para as informações do banco de dados.
 
-Optamos pelo banco de dados SQLite com a base de dados sepep_wiki.
 
-Mas o Mediawiki suporta os seguntes Bancos de Dados;
+O MediaWiki suporta os sistemas de banco de dados a seguir:
+<br>
+
+>MariaDB é a base de dados preferida para o MediaWiki e a melhor suportada. O MediaWiki também trabalha com MySQL e Percona Server, que são compatíveis com MariaDB.
 
 <br>
 
-```MySQL
-  MySQL
-```
-| Tipo de BD  | Host do Banco de Dados | Nome do Banco de dados                | Prefixo da tabela BD | Nome de usuário     | Senha do DB|
-| ----------- | ---------------------- | ------------------------------------- | -------------------- | ------------------- | ---------- |
-|   MySQL     | Coloque o localhost    | nome do bd que você criou para a wiki | serão criadas no bd¹ | Seu nome de usuario | Sua senha | 
+(Como compilar PHP com suporte para MySQL.)
 
-> ¹ Neste campo você pode digitar qualquer prefixo para as tabelas do banco de dados que serão criadas no banco de dados. O prefixo da tabela é útil se você decidir instalar mais de um aplicativo no mesmo banco de dados. Neste caso as tabelas de cada aplicação devem ter um prefixo de tabela diferente. No entanto, por motivos de segurança, é recomendável manter cada aplicativo em um banco de dados separado.
+>PostgreSQL é um popular sistema de banco de dados de código aberto como uma alternativa para o MySQL. (Como compilar o PHP com suporte PostgreSQL)
 
 <br>
-<br>
 
-```Mariadb
-  MariaDB
-```
-| Tipo de BD  | Host do Banco de Dados | Nome do Banco de dados                | Prefixo da tabela BD | Nome de usuário     | Senha do DB|
-| ----------- | ---------------------- | ------------------------------------- | -------------------- | ------------------- | ---------- |
-|   MariaDB   | Coloque o localhost    | nome do bd que você criou para a wiki | serão criadas no bd¹ | Seu nome de usuario | Sua senha | 
+>O SQLite é uma plataforma de base de dados ligeira muito bem suportada. (Como compilar PHP com suporte para SQLite, usa PDO.)
 
-<br>
-<br>
-
-
-```sqlite
-  SQLite
-```
-| Tipo de BD  | Diretorio do BD  | Nome do BD|
-| ----------- | ---------------- | --------- |
-|  SQLite     | /var/www/data    | My-wiki   |
-
->No SQLite, o diretorio do Banco de dados é a pasta onde ficará seus dados para backup.
-
->E no nome do Bando de dados é de sua escolha ( sem colocar Hifem ).
 
 <br>
 
