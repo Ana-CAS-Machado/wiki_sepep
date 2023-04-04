@@ -1,8 +1,13 @@
 #!/bin/bash
 
-version="2.0"
-container_name="sepep-mediawiki_v$version"
+export env
+
+container_name=sepep_wiki
 imagem_media_wiki="mediawiki"
+
+docker stop $container_name
+docker rm $container_name
+
 porta_aberta=80
 proj_name="wiki_sepep"
 
