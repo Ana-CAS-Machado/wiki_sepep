@@ -16,4 +16,3 @@ docker run --name $container_name -v /home/$proj_name:/var/local -p $porta_abert
 docker exec $container_name apt-get update
 docker exec $container_name apt-get upgrade
 docker exec $container_name apt-get install sqlite3
-docker exec $container_name sqlite3 sepep_wiki.sqlite .dump > bkp_sepep_wiki.sql
