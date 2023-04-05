@@ -12,7 +12,7 @@
 
 # Protect against web entry
 if ( !defined( 'MEDIAWIKI' ) ) {
-        exit;
+	exit;
 }
 
 
@@ -22,15 +22,6 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $wgSitename = "SEPEP Wiki";
 $wgMetaNamespace = "SEPEP_Wiki";
 
-#TimeZone
-$wgLocaltimezone = "America/Sao_Paulo";
-$dtz = new DateTimeZone ( $wgLocaltimezone );
-$dt = new DateTime('now', $dtz);
-$wgLocalTZoffset = $dtz ->getOffset($dt) / 60;
-unset($dtz);
-unset($dt);
-
-
 ## The URL base path to the directory containing the wiki;
 ## defaults for all runtime URL paths are based off of this.
 ## For more information on customizing the URLs
@@ -39,7 +30,7 @@ unset($dt);
 $wgScriptPath = "";
 
 ## The protocol and server name to use in fully-qualified URLs
-$wgServer = "http://wiki.sepep.pmsp";
+$wgServer = "http://10.80.14.20";
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
@@ -47,13 +38,11 @@ $wgResourceBasePath = $wgScriptPath;
 ## The URL paths to the logo.  Make sure you change this from the default,
 ## or else you'll overwrite your logo when you upgrade!
 $wgLogos = [
-        '1x' => "http://wiki.sepep.pmsp/images/c/c9/Logo.png",
-        'icon' => "http://wiki.sepep.pmsp/images/c/c9/Logo.png",
+	'1x' => "images/Logo.png",
+	'icon' => "images/Logo.png",
 ];
 
 ## UPO means: this is also a user preference option
-#Adicionnar Favico
-$wgFavicon = "/images/6/64/favicon.ico";
 
 $wgEnableEmail = true;
 $wgEnableUserEmail = true; # UPO
@@ -68,50 +57,50 @@ $wgEmailAuthentication = true;
 ## Database settings
 $wgDBtype = "sqlite";
 $wgDBserver = "";
-$wgDBname = "sepep_wiki";
+$wgDBname = "bkp_sepepwiki";
 $wgDBuser = "";
 $wgDBpassword = "";
 
 # SQLite-specific settings
 $wgSQLiteDataDir = "/var/www/data";
 $wgObjectCaches[CACHE_DB] = [
-        'class' => SqlBagOStuff::class,
-        'loggroup' => 'SQLBagOStuff',
-        'server' => [
-                'type' => 'sqlite',
-                'dbname' => 'wikicache',
-                'tablePrefix' => '',
-                'variables' => [ 'synchronous' => 'NORMAL' ],
-                'dbDirectory' => $wgSQLiteDataDir,
-                'trxMode' => 'IMMEDIATE',
-                'flags' => 0
-        ]
+	'class' => SqlBagOStuff::class,
+	'loggroup' => 'SQLBagOStuff',
+	'server' => [
+		'type' => 'sqlite',
+		'dbname' => 'wikicache',
+		'tablePrefix' => '',
+		'variables' => [ 'synchronous' => 'NORMAL' ],
+		'dbDirectory' => $wgSQLiteDataDir,
+		'trxMode' => 'IMMEDIATE',
+		'flags' => 0
+	]
 ];
 $wgObjectCaches['db-replicated'] = [
-        'factory' => 'Wikimedia\ObjectFactory\ObjectFactory::getObjectFromSpec',
-        'args' => [ [ 'factory' => 'ObjectCache::getInstance', 'args' => [ CACHE_DB ] ] ]
+	'factory' => 'Wikimedia\ObjectFactory\ObjectFactory::getObjectFromSpec',
+	'args' => [ [ 'factory' => 'ObjectCache::getInstance', 'args' => [ CACHE_DB ] ] ]
 ];
 $wgLocalisationCacheConf['storeServer'] = [
-        'type' => 'sqlite',
-        'dbname' => "{$wgDBname}_l10n_cache",
-        'tablePrefix' => '',
-        'variables' => [ 'synchronous' => 'NORMAL' ],
-        'dbDirectory' => $wgSQLiteDataDir,
-        'trxMode' => 'IMMEDIATE',
-        'flags' => 0
+	'type' => 'sqlite',
+	'dbname' => "{$wgDBname}_l10n_cache",
+	'tablePrefix' => '',
+	'variables' => [ 'synchronous' => 'NORMAL' ],
+	'dbDirectory' => $wgSQLiteDataDir,
+	'trxMode' => 'IMMEDIATE',
+	'flags' => 0
 ];
 $wgJobTypeConf['default'] = [
-        'class' => 'JobQueueDB',
-        'claimTTL' => 3600,
-        'server' => [
-                'type' => 'sqlite',
-                'dbname' => "{$wgDBname}_jobqueue",
-                'tablePrefix' => '',
-                'variables' => [ 'synchronous' => 'NORMAL' ],
-                'dbDirectory' => $wgSQLiteDataDir,
-                'trxMode' => 'IMMEDIATE',
-                'flags' => 0
-        ]
+	'class' => 'JobQueueDB',
+	'claimTTL' => 3600,
+	'server' => [
+		'type' => 'sqlite',
+		'dbname' => "{$wgDBname}_jobqueue",
+		'tablePrefix' => '',
+		'variables' => [ 'synchronous' => 'NORMAL' ],
+		'dbDirectory' => $wgSQLiteDataDir,
+		'trxMode' => 'IMMEDIATE',
+		'flags' => 0
+	]
 ];
 $wgResourceLoaderUseObjectCacheForDeps = true;
 
@@ -132,9 +121,6 @@ $wgImageMagickConvertCommand = "/usr/bin/convert";
 # InstantCommons allows wiki to use images from https://commons.wikimedia.org
 $wgUseInstantCommons = false;
 
-#Upload Max
-$wgMaxUploadSize = 3300000;
-
 # Periodically send a pingback to https://www.mediawiki.org/ with basic data
 # about this MediaWiki instance. The Wikimedia Foundation shares this data
 # with MediaWiki developers to help guide future development efforts.
@@ -151,14 +137,14 @@ $wgLocaltimezone = "UTC";
 ## be publicly accessible from the web.
 #$wgCacheDirectory = "$IP/cache";
 
-$wgSecretKey = "87f6c249d2f58ae16e5ab04b62def26285cfca98fa18021ff6032228bfadec68";
+$wgSecretKey = "33b6fbf568ec93767a03a0e3e0d5a67cec72772558963817778ded617a23bc73";
 
 # Changing this will log out all existing sessions.
 $wgAuthenticationTokenVersion = "1";
 
 # Site upgrade key. Must be set to a string (default provided) to turn on the
 # web installer while LocalSettings.php is in place
-$wgUpgradeKey = "faaa9ec4b21dd16f";
+$wgUpgradeKey = "373068a0f769b0d3";
 
 ## For attaching licensing metadata to pages, and displaying an
 ## appropriate copyright notice / icon. GNU Free Documentation
@@ -223,3 +209,18 @@ wfLoadExtension( 'WikiEditor' );
 
 # End of automatically generated settings.
 # Add more configuration options below.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$wgFavicon = "/images/favicon.ico";
