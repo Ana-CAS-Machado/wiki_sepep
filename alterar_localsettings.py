@@ -68,7 +68,19 @@ def acrescentar_linha_local_settings(nova_linha:str)->None:
 
 def mudar_favicon():
 
-    new_t = '$wgFavicon = "/images/favicon.ico"'
+    new_t = '$wgFavicon = "/images/favicon.ico";'
+    alterar_local_settings(new_t, '')
+    acrescentar_linha_local_settings(new_t)
+
+def timezone():
+
+    new_t='''$wgLocaltimezone = "America/Sao_Paulo";
+$dtz = new DateTimeZone($wgLocaltimezone);
+$dt = new DateTime('now', $dtz);
+$wgLocalTZoffset = $dtz->getOffset($dt) / 60;
+unset($dtz);
+unset($dt);'''
+    alterar_local_settings(new_t, '')
     acrescentar_linha_local_settings(new_t)
 
 
