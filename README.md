@@ -31,57 +31,15 @@ Ele é escrito na linguagem de programação PHP e armazena o conteúdo em um ba
 
 ![imagemMediawiki](https://www.mediawiki.org/static/images/icons/mediawikiwiki.svg)
 
-## Importante
 
-A partir do MediaWiki 1.2.0, é possível instalar e configurar o wiki
-"in-place", desde que você tenha os pré-requisitos necessários disponíveis.
-
-#### Software necessário a partir do MediaWiki 1.41.0:
-
-```softwae
-  Um software de servidor web para servir páginas MediaWiki para o navegador web.
-  PHP para executar o MediaWiki.
-  Um servidor de banco de dados para armazenar páginas e dados do MediaWiki
-```
-
-#### Um servidor SQL, os seguintes tipos são suportados;
-
-```bd
-  MariaDB 10.3 ou superior
-  MySQL 5.7.0 ou superior
-  PostgreSQL 10 ou superior
-  SQLite 3.8.0 ou superior
-```
-MediaWiki é desenvolvido e testado principalmente em plataformas Unix/Linux, mas deve
-funcionam no Windows também.
-
-O suporte para conteúdo especializado requer a instalação da extensão relevante. Para
-fórmula, consulte https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Math
-
-Não se esqueça de verificar o arquivo RELEASE-NOTES...
-
-
-Documentação adicional está disponível on-line, que pode incluir informações mais detalhadas
-notas sobre sistemas operacionais específicos e soluções alternativas para hospedagem difícil
-ambientes:
-
-https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Installing_MediaWiki
-
-
-******************* AVISO *******************
-
-**LEMBRE-SE: SEMPRE FAÇA BACKUP DO SEU BANCO DE DADOS ANTES
-TENTANDO INSTALAR OU ATUALIZAR!!!**
-
-******************* AVISO *******************
 
 <br>
 
-# Instalação
+# **Instalação**
 
 <br>
 
-### _Instalando a Wiki no container_
+## _Instalando a Wiki no container_
 ---
 <br>
 Nesse Software utilizamos o Docker e para as confugurações da Mediawiki, utilizamos a linguagem PHP.
@@ -111,7 +69,7 @@ Em seguida, acesse-o via http://localhost:8080 ou http://host-ip:8080em um naveg
 
 <br>
 
-### _Idioma_
+## _Idioma_
 ---
 Na próxima página estão as opções para o idioma:
 
@@ -132,7 +90,7 @@ A próxima etapa verifica automaticamente o ambiente do servidor (por exemplo, v
 
 <br>
 
-### _Banco de Dados_
+## _Banco de Dados_
 ---
 Os servidores são configurados de forma que o MediaWiki seja executado sem problemas. Clique no botão Continuar para ir para a próxima página.
 
@@ -146,7 +104,6 @@ O MediaWiki suporta os sistemas de banco de dados a seguir:
 
 <br>
 
-(Como compilar PHP com suporte para MySQL.)
 
 >PostgreSQL é um popular sistema de banco de dados de código aberto como uma alternativa para o MySQL. (Como compilar o PHP com suporte PostgreSQL)
 
@@ -156,6 +113,280 @@ O MediaWiki suporta os sistemas de banco de dados a seguir:
 
 
 <br>
+Para a WIKI de SEPEP, utilisamos o SQLite, economiza espaço e não foi preciso gerar um container só para o SQL
+
+
+A partir desse ponto, configure o MediaWiki de acordo com suas preferencias.
+Ao terminar, o instalador irá proceder à instalação de toda a estrutura da mediawiki.
+Após terminar a instalação da plataforma,  o MediaWiki ira gerar o arquivo LocalSettings.php, com todas as configurações. 
+
+<br>
+
+<img src="https://pplware.sapo.pt/wp-content/uploads/2013/06/media_10_thumb.jpg">
+
+Devemos descarregar o ficheiro LocalSettings.php e colocá-lo em _/var/www/mediawiki_ ou _/var/www/html_. Na raiz do MediaWiki.
+
+<br>
+
+_O comando usado para carregar o LocalSettings foi o SCP (cópia segura) é um utilitário de linha de comando que permite copiar arquivos e diretórios com segurança entre dois locais._
+
+<br>
+Para copiar um arquivo de um sistema local para um remoto, execute o seguinte comando:
+
+<br>
+
+ >scp file.txt remote_username@10.10.0.2:/remote/directory 
+
+<br>
+
+Feito isso, sua Wiki já esta configurada e pronta para o acesso.
+
+<img src="https://pplware.sapo.pt/wp-content/uploads/2013/06/media_12_thumb.jpg">
+
+<br>
+<br>
+
+## **Observações**
+
+Foi criado _scripts_ para facilitar a instalação e configuração.
+
+<br>
+
+> Só lembrando que os scripts estão configurados para a wiki de sepep, altere para que fique com as configurações de sua wiki.
+
+<br>
+
+### start_wiki.sh
+
+<br>
+
+Para um S.O como o Ubuntu foi criado um Shell script para iniciar a wiki ( pode-se criar um scrip em Python ).
+
+<br>
+
+```start_wiki
+  #!/bin/bash
+  export env
+
+  container_name=name_your_wiki
+  imagem_media_wiki="mediawiki"
+
+  docker stop $container_name
+  docker rm $container_name
+
+  porta_aberta=80
+  proj_name="your_project"
+
+  docker run --name $container_name -v /home/$proj_name:/var/local -p $porta_aberta:80 -d  $imagem_media_wiki
+
+  docker exec $container_name apt-get update
+  docker exec $container_name apt-get upgrade
+  docker exec $container_name apt-get install sqlite3
+```
+<br>
+
+Depois de iniciar sua wiki, configure ela manualmente, como mostrado a cima, e coloque o LocalSettings.php em seu container.
+
+Após colocar o LocalSettings em seu container iremos alteralo.
+
+<br>
+
+### **Alterando o LocalSettings**
+
+<br>
+
+Para a wiki ficar mais a cara de SEPEP, alteramos o *logo* e adicionamos o **Favicon**, e o **TimeZone** para o fuso horario de São Paulo.
+O Script de alteração foi feito em Python.
+
+<br>
+
+```Alterar_localsettings
+    import subprocess
+    from dotenv import load_dotenv
+    import os
+
+    def pegar_id_container()->str:
+        
+        container_id=subprocess.run(['sudo', 'docker', 'ps', '-aqf', 'name=sepep-mediawiki_v2.0'], capture_output=True)
+        container_id=container_id.stdout.decode('utf-8')
+        print(f"O id do container eh: {container_id}")
+        
+        return container_id
+
+    def copiar_localsettings_do_docker(container_name:str)->None:
+        
+        caminho_local_settings='/var/www/html/LocalSettings.php'
+        comando = ['docker', 'cp', '-a', f'{container_name}:{caminho_local_settings}', '.']
+        subprocess.run(comando)
+
+    def jogar_localsettings_no_docker(container_name:str)->None:
+
+        caminho_local_settings='/var/www/html/LocalSettings.php'
+        comando = ['docker', 'cp', 'LocalSettings.php', f'{container_name}:{caminho_local_settings}']
+        subprocess.run(comando)
+
+    def jogar_logo_imgs(container_name:str)->None:
+
+        caminho_imgs='/var/www/html/images'
+        comando = ['docker', 'cp', 'Logo.png', f'{container_name}:{caminho_imgs}']
+        subprocess.run(comando)
+
+    def alterar_local_settings(txt_original:str, novo_texto:str)->None:
+
+        with open('LocalSettings.php', 'r') as f:
+            t = f.read()
+
+        new_t = t.replace(txt_original, novo_texto)
+
+        with open('LocalSettings.php', 'w') as f:
+            f.write(new_t)
+
+
+    def mudar_logo():
+
+        search_string = "$wgResourceBasePath/resources/assets/change-your-logo.svg"
+        
+        new_t = "images/Logo.png"
+
+        alterar_local_settings(search_string, new_t)
+
+        search_string_2 = "$wgResourceBasePath/resources/assets/change-your-logo.svg"
+        alterar_local_settings(search_string_2, new_t)
+
+    def jogar_favicon(container_name:str)->None:
+
+        caminho_imgs='/var/www/html/images'
+        comando = ['docker', 'cp', 'favicon.ico', f'{container_name}:{caminho_imgs}']
+        subprocess.run(comando)
+
+    def acrescentar_linha_local_settings(nova_linha:str)->None:
+
+        with open('LocalSettings.php', 'r') as f:
+            t = f.read()
+
+        new_t = t + '\n' + nova_linha + '\n'
+        with open('LocalSettings.php', 'w') as f:
+            f.write(new_t)
+
+
+    def mudar_favicon():
+
+        new_t = '$wgFavicon = "/images/favicon.ico";'
+        alterar_local_settings(new_t, '')
+        acrescentar_linha_local_settings(new_t)
+
+    def timezone():
+
+        new_t='''$wgLocaltimezone = "America/Sao_Paulo";
+    $dtz = new DateTimeZone($wgLocaltimezone);
+    $dt = new DateTime('now', $dtz);
+    $wgLocalTZoffset = $dtz->getOffset($dt) / 60;
+    unset($dtz);
+    unset($dt);'''
+        alterar_local_settings(new_t, '')
+        acrescentar_linha_local_settings(new_t)
+
+
+
+    if __name__ == "__main__":
+        
+        load_dotenv()
+        container_name = os.environ['container_name']
+        print(container_name)
+
+        jogar_ou_copiar = input('Deseja <jogar> ou <copiar> o arquivo LocalSettings?')
+        if jogar_ou_copiar not in {'jogar', 'copiar'}:
+            raise ValueError(f'Deve ser <jogar> ou <copiar>. Resposta dada: {jogar_ou_copiar}')
+        if jogar_ou_copiar=='jogar':
+            jogar_localsettings_no_docker(container_name)
+        else:
+            copiar_localsettings_do_docker(container_name)
+            jogar_logo_imgs(container_name)
+            mudar_logo()
+            jogar_favicon(container_name)
+            mudar_favicon()
+            jogar_localsettings_no_docker(container_name)
+```
+
+<br>
+
+> Para executar um script em Python dentro do Docker se usa o comando;
+
+> **python3 alterar_localsettings.py** 
+
+<br>
+
+1. Primeiro execute o script em python e selecione "Jogar" ele ira colocar o *LocalSettings* dentro do container, na raiz da wiki.
+
+<br>
+
+2. Execute o script novamente mas agora selecione a opção "Copiar" para que ele faça as alterações.
+
+
+### Backup
+
+<br>
+
+O script de backup foi desenvolvido em Shell script.
+
+```backup
+
+#!/bin/bash
+##########################################
+#
+# Backup to NFS mount script.
+#
+##########################################
+
+#O que fazer com Backup
+container_id="408586aaf301"
+backup_file="/var/www/data/"
+
+#Para onde fazer o backup
+dest_tmp="backup_tmp"
+dest="backup"
+
+#Criar nome do arquivo
+day=$(date +%m-%d-%Y)
+hostname="backup_wiki"
+archive_file="$hostname-$day.tgz"
+
+#Imprimir mensagem de status inicial
+echo "Backing up $backup_file to $dest/$archive_file"
+date
+echo date
+
+#Faça o backup dos arquivos usando tar
+mkdir -p $dest_tmp
+mkdir -p $dest
+docker cp $container_id:$backup_file $dest_tmp
+tar -zcvf $dest/$archive_file $dest_tmp
+rm -r $dest_tmp
+
+#Imprimir mensagem de status final
+echo
+echo " backup finished"
+date
+
+#Longa lista de arquivos em $dest para verificar os tamanhos dos arquivos
+ls -lh $dest
+tar -ztvf $dest/$archive_file
+
+```
+
+Ele compacta o backup em tar (zip) e para recuperar o backup é só descompactar.
+
+<br>
+
+Comando para descompactar.
+>tar -xzvf /local/do-seu-backup.tgz
+
+<br>
+
+Sua Wiki já esta pronta para uso.
+
+<br>
+
 
 ### _Conclusão_
 ---
@@ -170,13 +401,73 @@ Se você configurou as configurações para as informações do banco de dados c
 <br>
 
 A última coisa que o instalador faz é gerar um arquivo **LocalSettings.php** . Este é um arquivo essencial que você deve colocar na conta de hospedagem na pasta raiz do MediaWiki. O arquivo contém dados relacionados à configuração do seu site. Ele é configurado de acordo com a forma como você configurou as opções nas etapas anteriores do processo de instalação.
-<br>
-
-> Há algumas informações que podem ser alteradas depois de baixado o **LocalSettings.php**
-<br>
 
 A última página informa sobre isso e fornece um link para baixar LocalSettings.php caso o download não tenha iniciado automaticamente. 
 Depois de fazer isso, você pode acessar e usar seu site wiki.
+
+<br>
+
+> Só altere o LocalSettings, qualquer outro alquivo que foi alterado ira prejudicar sua wiki e ela não podera mais funcionar. 
+
+<br>
+
+>A linguagem usada para alterar o LocalSettins sempre será o PHP.
+
+<br>
+
+ >Há algumas informações que podem ser alteradas depois de baixado o **LocalSettings.php**.
+
+<br>
+
+Para adicionar manualmente sua logo.
+
+1. - Adicionar o logo dentro da Wiki e salvar com o nome.
+
+2. - Modificar o código dentro do LocalSettings.php colocando o endereço de IP da Imagem.
+
+```logo
+
+$wgLogos = [
+	'1x' => "$wgResourceBasePath/resources/assets/change-your-logo.svg",
+	'icon' => "$wgResourceBasePath/resources/assets/change-your-logo.svg",
+];
+
+```
+
+<br>
+
+O TimeZone é opcional colocar.
+
+<br>
+
+```timezone
+
+$wgLocaltimezone = "América/São_Paulo" ;
+$dtz = new DateTimeZone ( $wgLocaltimezone );
+$dt = new DateTime ( 'agora' , $dtz );
+$wgLocalTZoffset = $dtz -> getOffset ( $dt ) / 60 ;
+desarmar ( $dtz );
+não configurado ( $dt );
+
+```
+
+<br>
+
+O Favicom precisa ser **_.ICO_** ou não ira funcionar. Lembre de pegar uma imagem ou fazer ela em HD, sempre em otima qualidade.
+
+<br>
+
+Para usar um favicon situada em local diferente do diretório raiz do seu site, no arquivo LocalSettings.php, adicionar ;
+
+>$wgFavicon = "$wgScriptPath/path/to/your/favicon.ico";
+
+Exemplo:
+
+```favicon
+
+  $wgFavicon = "/images/6/64/Favicon.ico";
+
+```
 
 <br>
 
@@ -188,3 +479,4 @@ Como acontece com todas as imagens do Docker, elas provavelmente também contêm
 Algumas informações de licença adicionais que puderam ser detectadas automaticamente podem ser encontradas no diretório do [repo-inforepositóriomediawiki/](https://github.com/docker-library/repo-info/tree/master/repos/mediawiki) .
 
 Quanto ao uso de qualquer imagem pré-construída, é responsabilidade do usuário da imagem garantir que qualquer uso desta imagem esteja em conformidade com quaisquer licenças relevantes para todos os softwares contidos nela.
+
