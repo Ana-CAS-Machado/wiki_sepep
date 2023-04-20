@@ -65,7 +65,7 @@ Para a wiki de SEPEP utilizamos o comando;
 
 Em seguida, acesse-o via http://localhost:8080 ou http://host-ip:8080em um navegador.
 
-<img src="https://www.hostknox.com/content/images/tutorials/mediawiki/installation/1-zoom.jpg" width="400" height="200" >
+<img src="https://www.hostknox.com/content/images/tutorials/mediawiki/installation/1-zoom.jpg](https://mariushosting.com/wp-content/uploads/2023/02/MediaWiki-Synology-NAS-Set-up-12.png" width="400" height="200" >
 
 <br>
 
