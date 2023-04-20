@@ -65,7 +65,7 @@ Para a wiki de SEPEP utilizamos o comando;
 
 Em seguida, acesse-o via http://localhost:8080 ou http://host-ip:8080em um navegador.
 
-![iamgem_inicial](https://www.google.com/url?sa=i&url=https%3A%2F%2Fmariushosting.com%2Fhow-to-install-mediawiki-on-your-synology-nas%2F&psig=AOvVaw1BBrY9frnDPFuKWX7RD6Sp&ust=1682085451664000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCLDbvuDOuP4CFQAAAAAdAAAAABAT)
+![imagem](https://mariushosting.com/wp-content/uploads/2023/02/MediaWiki-Synology-NAS-Set-up-12.png)
 
 <br>
 
