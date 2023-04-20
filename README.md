@@ -65,7 +65,7 @@ Para a wiki de SEPEP utilizamos o comando;
 
 Em seguida, acesse-o via http://localhost:8080 ou http://host-ip:8080em um navegador.
 
-<img src="https://www.hostknox.com/content/images/tutorials/mediawiki/installation/1-zoom.jpg](https://mariushosting.com/wp-content/uploads/2023/02/MediaWiki-Synology-NAS-Set-up-12.png" width="400" height="200" >
+<img src="https://www.hostknox.com/content/images/tutorials/mediawiki/installation/1-zoom.jpg](https://mariushosting.com/wp-content/uploads/2023/02/MediaWiki-Synology-NAS-Set-up-12.png">
 
 <br>
 
@@ -86,7 +86,7 @@ Depois de estar pronto com as opções, clique no botão Continuar .
 
 A próxima etapa verifica automaticamente o ambiente do servidor (por exemplo, versão do PHP, biblioteca gráfica, nome de domínio e endereço URL da instalação, etc.). A página exibe o resultado dessa verificação, bem como os direitos autorais e os termos:
 
-<img src="https://www.hostknox.com/content/images/tutorials/mediawiki/installation/3-zoom.jpg"  width="400" height="200" >
+<img src="https://www.hostknox.com/content/images/tutorials/mediawiki/installation/3-zoom.jpg">
 
 <br>
 
