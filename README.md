@@ -86,7 +86,7 @@ Depois de estar pronto com as opções, clique no botão Continuar .
 
 A próxima etapa verifica automaticamente o ambiente do servidor (por exemplo, versão do PHP, biblioteca gráfica, nome de domínio e endereço URL da instalação, etc.). A página exibe o resultado dessa verificação, bem como os direitos autorais e os termos:
 
-![imagem](https://www.hostknox.com/content/images/tutorials/mediawiki/installation/3-zoom.jpg)
+![imagem](https://mariushosting.com/wp-content/uploads/2023/02/MediaWiki-Synology-NAS-Set-up-11.png)
 
 <br>
 
