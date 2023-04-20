@@ -80,7 +80,9 @@ Seu idioma - selecione o idioma que será usado durante o processo de instalaç�
 ```
 
 ```idioma_da_wiki
-Idioma Wiki - selecione o idioma padrão que será usado para o site. Este é o idioma no qual as páginas do site e as opções serão exibidas. Observe que algumas traduções podem não estar 100% completas, o que significa que algumas sequências de texto padrão e opções que aparecem no site podem não estar traduzidas para esse idioma.
+Idioma Wiki - selecione o idioma padrão que será usado para o site. 
+Este é o idioma no qual as páginas do site e as opções serão exibidas. Observe que algumas traduções podem não estar 100% completas, 
+o que significa que algumas sequências de texto padrão e opções que aparecem no site podem não estar traduzidas para esse idioma.
 Depois de estar pronto com as opções, clique no botão Continuar .
 ``` 
 
