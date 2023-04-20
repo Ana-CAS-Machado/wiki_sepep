@@ -390,10 +390,9 @@ Sua Wiki já esta pronta para uso.
 
 ### _Conclusão_
 ---
-Existem vários tipos de banco de dados suportados por esta imagem, mais facilmente usados ​​por meio de vinculação de contêiner padrão. Na configuração padrão, o SQLite pode ser usado para evitar um segundo contêiner e gravar em arquivos simples. Seguem instruções mais detalhadas para diferentes tipos de banco de dados (mais prontos para produção).
+Existem vários tipos de banco de dados suportados por esta imagem, mais facilmente usados ​​por meio de vinculação de contêiner padrão. Na configuração padrão, o SQLite pode ser usado para evitar um segundo contêiner e gravar em arquivos simples.
 
-Ao acessar pela primeira vez o servidor web fornecido por esta imagem, ele passará por um breve processo de configuração. Os detalhes fornecidos abaixo são especificamente para a etapa "Configurar banco de dados" desse processo de configuração.
-
+Ao acessar pela primeira vez o servidor web fornecido por esta imagem, ele passará por um breve processo de configuração.
 Após terminar toda a configuração na pagina de instalação 
 > Lembrando que é de sua preferencia as configurações de sua wiki.
 
